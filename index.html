@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+      table,th,td,tr{
+            border:1px solid black;
+            border-collapse: collapse;
+        }
+</style>
+
+<body>
+    <form id="form1">
+        <label for="firstName">first name</label><br>
+        <input type="text" name="firstName" id="name"><br>
+        <label for="email">email</label><br>
+        <input type="email" name="email" id="email"><br>
+        <label for="password">password</label><br>
+        <input type="password" name="password" id="psd"><br>
+        <label for="phoneNumber">phone number</label><br>
+        <input type="number" name="phoneNumber" id="num"><br>
+        <label for="state">state</label><br>
+        <input type="text" name="state" id="state"><br>
+        <label for="City">City</label><br>
+        <input type="text" name="city" id="city"><br>
+        <label for="Country">Country</label><br>
+        <input type="text" name="country" id="country"><br>
+        <label for="Pincode">Pincode</label><br>
+        <input type="number" name="pincode" id="pin"><br>
+        <label for="education">Education </label><br>
+        <input type="text" name="education" id="education"><br>
+        <br>
+       
+        <button type="submit">sumbit</button><br>
+      </form>
+    <script>
+        // var board1=document.createElement("div");
+        
+        // board1.style.width="50%";
+        // board1.style.height="600px";
+        // board1.style.position="absolute";
+        // board1.style.left="0px";
+        // board1.style.backgroundColor="red"
+        // document.body.appendChild(board1)
+
+        // var survey = document.createElement("form")
+        // survey.setAttribute("id","userform");
+        // survey.innerHTML=
+        // board1.appendChild(survey);
+      
+  
+      
+
+        
+       
+       
+        document.getElementById("form1").addEventListener("submit",async function(element)
+        {
+            element.preventDefault();
+           
+           var object={
+                name : document.getElementById("name").value,
+                email : document.getElementById("email").value,
+                phonenum : document.getElementById("num").value,      
+                password : document.getElementById("psd").value,
+                state : document.getElementById("state").value,
+                city : document.getElementById("city").value,
+                country : document.getElementById("country").value,
+                
+                education : document.getElementById("education").value,
+                pincode : document.getElementById("pin").value
+           }
+           
+          try  {
+              var sendData = await fetch("https://6193c098d3ae6d0017da880c.mockapi.io/products",{
+                  method :"POST",
+                  body : JSON.stringify(object),
+                  headers : {
+                      "Content-type" : "application/json"
+
+                  }
+                 
+              })
+             location.reload();
+          }  
+          catch(error){
+              console.log(error)
+          }
+
+        });
+       
+        // get data from api
+        
+        async function getdata(){
+            try{
+                var data = await fetch("https://6193c098d3ae6d0017da880c.mockapi.io/products")
+                var dataobj=await (data.json())
+                for(i=0;i<dataobj.length;i++){
+                 var getin = document.createElement("div")
+                 getin.innerHTML=`<div><span>${(dataobj[i].name)}</span><span>&nbsp;&nbsp;${dataobj[i].email}</span><span>&nbsp;&nbsp;${dataobj[i].phonenum}</span><span>&nbsp;&nbsp;${dataobj[i].password}</span> <span>&nbsp;&nbsp;${dataobj[i].city} </span><span>&nbsp;&nbsp;${dataobj[i].state}</span><span>&nbsp;&nbsp;${dataobj[i].country}</span><span>&nbsp;&nbsp;${dataobj[i].pincode}</span><span>&nbsp;&nbsp;${dataobj[i].education}</span></div>`;
+                 getin.style.backgroundColor="white";
+                 board2.appendChild(getin)   
+                }
+                console.log(dataobj[0].name)                                   
+                
+
+
+            }catch(error){
+              console.log(error)
+            }
+        }
+        getdata()
+        
+
+        var board2 = document.createElement("div");
+        board2.style.width="75%";
+        board2.style.height="600px";
+        board2.style.position="absolute";
+        board2.style.left="25%"
+        board2.style.top=
+        board2.style.backgroundColor="grey"
+        document.body.appendChild(board2)
+
+        var myname=document.createElement("div")
+        myname.style.width="90px"
+        myname.innerHTML="<table><thead><tr><th>Name</th><th>Email</th><th>Phone Number</th><th>password</th><th>state</th><th>city</th><th>Country</th> <th>Education</th> <th>Pincode</th></tr></thead></table>"
+        myname.style.backgroundColor="white";
+        board2.appendChild(myname)
+
+        
+    </script>
+</body>
+</html>
